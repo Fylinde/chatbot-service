@@ -25,7 +25,7 @@ def user_callback(ch, method, properties, body):
         else:
             user_obj = ChatbotUserModel(
                 id=user_data["id"],
-                username=user_data["username"],
+                full_name=user_data["full_name"],
                 email=user_data["email"],
                 hashed_password=user_data["hashed_password"],
                 profile_picture=user_data.get("profile_picture"),
@@ -34,7 +34,7 @@ def user_callback(ch, method, properties, body):
             db.add(user_obj)
             db.commit()
             # Log user addition inside the session
-            logger.info(f"User added in chatbot-service: {user_obj.username} (ID: {user_obj.id})")
+            logger.info(f"User added in chatbot-service: {user_obj.full_name} (ID: {user_obj.id})")
     except IntegrityError as e:
         logger.error(f"Integrity error occurred while adding user: {str(e)}")
         db.rollback()

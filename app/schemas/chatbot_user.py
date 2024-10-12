@@ -3,14 +3,14 @@ from typing import Optional
 
 # Base schema for common user fields
 class ChatbotUserBase(BaseModel):
-    username: Optional[str] = None
+    full_name: Optional[str] = None
     email: Optional[EmailStr] = None
     profile_picture: Optional[str] = None
     preferences: Optional[str] = None
 
 # Schema used for creating a new user
 class ChatbotUserCreate(ChatbotUserBase):
-    username: str
+    full_name: str
     email: EmailStr
     password: str  # This is the plain text password which will be hashed
 

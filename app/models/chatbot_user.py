@@ -6,8 +6,9 @@ class ChatbotUserModel(BaseModel):
     __tablename__ = 'chatbot_users'
 
     id = Column(Integer, primary_key=True, index=True)
-    username = Column(String, unique=True, index=True)
-    email = Column(String, unique=True, index=True)
+    full_name = Column(String(255), nullable=False)  # Use full_name instead of username
+    email = Column(String(255), unique=True, nullable=False)
+    phone_number = Column(String(15), unique=True, nullable=True)  # Add phone number
     hashed_password = Column(String)
     profile_picture = Column(String, nullable=True)
     preferences = Column(String, nullable=True)
