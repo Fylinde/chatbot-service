@@ -8,11 +8,11 @@ class ChatbotChatModel(BaseModel):
 
     id = Column(Integer, primary_key=True, index=True)
     user_id = Column(Integer, ForeignKey('chatbot_users.id'), nullable=True)
-    vendor_id = Column(Integer, ForeignKey('vendors.id'), nullable=True)
+    seller_id = Column(Integer, ForeignKey('sellers.id'), nullable=True)
     interaction_type = Column(String, index=True)
     message = Column(Text)
     response = Column(Text)
     created_at = Column(DateTime, default=datetime.utcnow)
 
     user = relationship("ChatbotUserModel", back_populates="chatbot_interactions", primaryjoin="ChatbotChatModel.user_id == ChatbotUserModel.id")
-    vendor = relationship("VendorModel", back_populates="chatbot_interactions")
+    seller = relationship("SellerModel", back_populates="chatbot_interactions")

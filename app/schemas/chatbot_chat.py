@@ -9,7 +9,7 @@ class ChatbotBase(BaseModel):
 
 class ChatbotCreate(BaseModel):
     user_id: Optional[int] = None
-    vendor_id: Optional[int] = None
+    seller_id: Optional[int] = None
     interaction_type: str
     message: str
     response: str
@@ -17,7 +17,7 @@ class ChatbotCreate(BaseModel):
 class ChatbotResponse(ChatbotBase):
     id: int
     user_id: Optional[int] = None
-    vendor_id: Optional[int] = None
+    seller_id: Optional[int] = None
     created_at: datetime
 
     class Config:

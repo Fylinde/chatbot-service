@@ -1,7 +1,7 @@
-# vendor_bot.py
+# seller_bot.py
 from app.nlp_engine import nlp_engine
 
-class VendorSupportBot:
+class SellerSupportBot:
     def __init__(self):
         self.engine = nlp_engine
 
@@ -9,4 +9,4 @@ class VendorSupportBot:
         response = self.engine.process_input(user_input)
         return response
 
-vendor_bot = VendorSupportBot()
+seller_bot = SellerSupportBot()

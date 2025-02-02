@@ -1,7 +1,7 @@
 from fastapi import APIRouter, Depends, HTTPException
 from sqlalchemy.orm import Session
 from app.customer_bot import customer_bot
-from app.vendor_bot import vendor_bot
+from app.seller_bot import seller_bot
 from app.database import get_db
 from app.models.user import UserModel
 from app.schemas.user import UserCreate, UserResponse, UserWithOrders
@@ -15,10 +15,10 @@ def customer_support(query: str, db: Session = Depends(get_db)):
     response = customer_bot.handle_query(query)
     return response
 
-@router.post("/vendor-support/")
-def vendor_support(query: str, db: Session = Depends(get_db)):
+@router.post("/seller-support/")
+def seller_support(query: str, db: Session = Depends(get_db)):
     # Here you can use the db session if needed
-    response = vendor_bot.handle_query(query)
+    response = seller_bot.handle_query(query)
     return response
 
 @router.post("/", response_model=UserResponse)

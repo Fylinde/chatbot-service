@@ -3,7 +3,7 @@ import logging
 from fastapi import FastAPI
 from app.database import get_db
 from app.consumers.user_created_consumer import start_user_consuming
-from app.consumers.vendor_created_consumer import start_vendor_consuming
+from app.consumers.seller_created_consumer import start_seller_consuming
 
 # Initialize FastAPI with metadata for Swagger
 app = FastAPI(
@@ -27,9 +27,9 @@ def read_root():
 def start_all_consumers():
     logger.info("Starting all consumers...")
     user_thread = threading.Thread(target=start_user_consuming)
-    vendor_thread = threading.Thread(target=start_vendor_consuming)
+    seller_thread = threading.Thread(target=start_seller_consuming)
     user_thread.start()
-    vendor_thread.start()
+    seller_thread.start()
     logger.info("All consumers started")
 
 @app.on_event("startup")

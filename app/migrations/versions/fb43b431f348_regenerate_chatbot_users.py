@@ -28,9 +28,9 @@ def upgrade() -> None:
     sa.Column('profile_picture', sa.String(), nullable=True),
     sa.Column('preferences', sa.String(), nullable=True),
     sa.Column('user_id', sa.Integer(), nullable=True),
-    sa.Column('vendor_id', sa.Integer(), nullable=True),
+    sa.Column('seller_id', sa.Integer(), nullable=True),
     sa.ForeignKeyConstraint(['user_id'], ['users.id'], ),
-    sa.ForeignKeyConstraint(['vendor_id'], ['vendors.id'], ),
+    sa.ForeignKeyConstraint(['seller_id'], ['sellers.id'], ),
     sa.PrimaryKeyConstraint('id')
     )
     op.create_index(op.f('ix_chatbot_users_email'), 'chatbot_users', ['email'], unique=True)

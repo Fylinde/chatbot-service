@@ -8,7 +8,7 @@ class ChatbotUserModel(BaseModel):
     id = Column(Integer, primary_key=True, index=True)
     full_name = Column(String(255), nullable=False)  # Use full_name instead of username
     email = Column(String(255), unique=True, nullable=False)
-    phone_number = Column(String(15), unique=True, nullable=True)  # Add phone number
+    phoneNumber = Column(String(15), unique=True, nullable=True)  # Add phone number
     hashed_password = Column(String)
     profile_picture = Column(String, nullable=True)
     preferences = Column(String, nullable=True)
@@ -17,9 +17,9 @@ class ChatbotUserModel(BaseModel):
     user_id = Column(Integer, ForeignKey('users.id'), nullable=True)
     user = relationship("UserModel")
 
-    # Foreign key to VendorModel (if needed)
-    vendor_id = Column(Integer, ForeignKey('vendors.id'), nullable=True)
-    vendor = relationship("VendorModel")
+    # Foreign key to SellerModel (if needed)
+    seller_id = Column(Integer, ForeignKey('sellers.id'), nullable=True)
+    seller = relationship("SellerModel")
 
     # Correct relationship to ChatbotChatModel
     chatbot_interactions = relationship("ChatbotChatModel", back_populates="user", primaryjoin="ChatbotUserModel.id == ChatbotChatModel.user_id")

@@ -30,26 +30,26 @@ def upgrade() -> None:
     op.create_index(op.f('ix_users_id'), 'users', ['id'], unique=False)
     op.create_index(op.f('ix_users_username'), 'users', ['username'], unique=True)
 
-    op.create_table('vendors',
+    op.create_table('sellers',
         sa.Column('id', sa.Integer(), nullable=False),
         sa.Column('name', sa.String(), nullable=True),
         sa.Column('email', sa.String(), nullable=True),
         sa.PrimaryKeyConstraint('id')
     )
-    op.create_index(op.f('ix_vendors_email'), 'vendors', ['email'], unique=True)
-    op.create_index(op.f('ix_vendors_id'), 'vendors', ['id'], unique=False)
-    op.create_index(op.f('ix_vendors_name'), 'vendors', ['name'], unique=True)
+    op.create_index(op.f('ix_sellers_email'), 'sellers', ['email'], unique=True)
+    op.create_index(op.f('ix_sellers_id'), 'sellers', ['id'], unique=False)
+    op.create_index(op.f('ix_sellers_name'), 'sellers', ['name'], unique=True)
 
     op.create_table('chatbot_interactions',
         sa.Column('id', sa.Integer(), nullable=False),
         sa.Column('user_id', sa.Integer(), nullable=True),
-        sa.Column('vendor_id', sa.Integer(), nullable=True),
+        sa.Column('seller_id', sa.Integer(), nullable=True),
         sa.Column('interaction_type', sa.String(), nullable=True),
         sa.Column('message', sa.Text(), nullable=True),
         sa.Column('response', sa.Text(), nullable=True),
         sa.Column('created_at', sa.DateTime(), nullable=True),
         sa.ForeignKeyConstraint(['user_id'], ['users.id'], name='fk_chatbot_interactions_user_id'),
-        sa.ForeignKeyConstraint(['vendor_id'], ['vendors.id'], name='fk_chatbot_interactions_vendor_id'),
+        sa.ForeignKeyConstraint(['seller_id'], ['sellers.id'], name='fk_chatbot_interactions_seller_id'),
         sa.PrimaryKeyConstraint('id')
     )
     op.create_index(op.f('ix_chatbot_interactions_id'), 'chatbot_interactions', ['id'], unique=False)
@@ -75,15 +75,15 @@ def downgrade() -> None:
     op.drop_table('orders')
 
     op.drop_constraint('fk_chatbot_interactions_user_id', 'chatbot_interactions', type_='foreignkey')
-    op.drop_constraint('fk_chatbot_interactions_vendor_id', 'chatbot_interactions', type_='foreignkey')
+    op.drop_constraint('fk_chatbot_interactions_seller_id', 'chatbot_interactions', type_='foreignkey')
     op.drop_index(op.f('ix_chatbot_interactions_interaction_type'), table_name='chatbot_interactions')
     op.drop_index(op.f('ix_chatbot_interactions_id'), table_name='chatbot_interactions')
     op.drop_table('chatbot_interactions')
 
-    op.drop_index(op.f('ix_vendors_name'), table_name='vendors')
-    op.drop_index(op.f('ix_vendors_id'), table_name='vendors')
-    op.drop_index(op.f('ix_vendors_email'), table_name='vendors')
-    op.drop_table('vendors')
+    op.drop_index(op.f('ix_sellers_name'), table_name='sellers')
+    op.drop_index(op.f('ix_sellers_id'), table_name='sellers')
+    op.drop_index(op.f('ix_sellers_email'), table_name='sellers')
+    op.drop_table('sellers')
 
     op.drop_index(op.f('ix_users_username'), table_name='users')
     op.drop_index(op.f('ix_users_id'), table_name='users')
